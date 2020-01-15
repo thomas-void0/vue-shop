@@ -1,0 +1,2 @@
+import Ajax from './index';
+
