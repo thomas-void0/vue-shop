@@ -14,7 +14,6 @@ export default (url,data,type="GET")=>{
     },err=>{
         Notify({type:"danger",message:err})
     })
-
     // 配置响应拦截器
     instance.interceptors.response.use(res=>{
         //dosomething
@@ -22,7 +21,6 @@ export default (url,data,type="GET")=>{
     },err=>{
         Notify({type:"danger",message:err})
     })
-
     return new Promise( resolve=>{
         let reqData = null;
         if(type === "GET"){
@@ -33,6 +31,24 @@ export default (url,data,type="GET")=>{
         reqData.then(res=>{
             resolve(res);
         }).catch(err=>{
+            Notify({type:"danger",message:`数据请求失败：${err}`});
+        })
+    })
+}
+
+// 请求本地json文件的实例
+const localInstance = axios.create({
+    baseURL:"/json-data",
+    timeout:5000
+})
+
+export const reqLocalJsonData = (url)=>{
+    return new Promise(resolve=>{
+        localInstance.get(url)
+        .then(res=>{
+            resolve(res)
+        })
+        .catch(err=>{
             Notify({type:"danger",message:`数据请求失败：${err}`});
         })
     })

@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <div class="content">
+      <router-view></router-view>
+    </div>
     <div class="tab-bar-css">
       <tab-bar />
     </div>
@@ -19,10 +21,16 @@
 
 <style>
   @import "assets/css/base.css";
+  #app{
+    width: 100%;
+  }
   .tab-bar-css{
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
+  }
+  .content{
+    margin-bottom: 49px;
   }
 </style>

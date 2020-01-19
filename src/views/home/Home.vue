@@ -1,18 +1,32 @@
 <template>
     <div class="home">
-        <nav-bar>
+        <nav-bar class="home-nav-bar">
             <template #center>
-                 <span>测试购物</span>
+                <span>测试购物</span>
             </template>
-        </nav-bar>
-        <swiper></swiper>
-        <recommend></recommend>
-        <popular></popular>
+        </nav-bar>            
+        <swiper class="home-swiper" />  
+        <recommend/>
+        <popular/>
+        <tab-title :titles="titles"/>
+        <goods-list  
+            :goodsData="homeGoods.homePop[0] && homeGoods.homePop[0].pop" 
+        />
     </div>
 </template>
 
 <script>
+    import { mapActions,mapState } from 'vuex';
+    import {
+        HOME_CHANGE_HOMEPOP,
+        HOME_CHANGE_HOMENEW,
+        HOME_CHANGE_HOMESELECT
+    } from "../../common/constant"
+
     import NavBar from "../../components/common/navbar/NavBar";
+    import TabTitle from "../../components/common/tabtitle/TabTitle";
+    import GoodsList from '../../components/common/goods/GoodsList';
+
     import Swiper from "./home-children/Swiper";
     import Recommend from "./home-children/Recommend";
     import Popular from "./home-children/Popular";
@@ -21,14 +35,61 @@
         name:"home",
         components: {
             NavBar,
+            TabTitle,
+            GoodsList,
             Swiper,
             Recommend,
-            Popular
+            Popular,
+        },
+        data () {
+            return {
+                /*标题配置数据*/
+                titles:[
+                    {id:0,title:"流行"},
+                    {id:1,title:"新款"},
+                    {id:2,title:"精选"},
+                ],
+            }
+        },
+        computed: {
+          ...mapState([
+              "homeGoods"
+          ])  
+        },
+        methods: {
+            ...mapActions([
+                "getHomeAllDefaultData"
+            ]),
+            /*初始化请求商品第一页的数据*/ 
+            initHomeGoodsData(){
+                [
+                    {type:HOME_CHANGE_HOMEPOP,url:"/pop/pop-page1.json"},
+                    {type:HOME_CHANGE_HOMENEW,url:"/new/new-page1.json"},
+                    {type:HOME_CHANGE_HOMESELECT,url:"/select/select-page1.json"}
+                ].forEach(({type,url})=>{
+                    this.getHomeAllDefaultData({
+                        type,
+                        url
+                    });
+                })
+            }
+        },
+        created () {
+            this.initHomeGoodsData();
         }
 
     }
 </script>
 
 <style scoped>
-
+    .home-nav-bar{
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 2;
+    }
+    .home-swiper{
+        margin-top: 44px;
+    }
 </style>
