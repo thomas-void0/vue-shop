@@ -6,7 +6,6 @@
             :key="index" 
             :data="item"
         />
-        <button @click="btn">xxxxxxxxx</button>
     </div>
 </template>
 <script>
@@ -23,9 +22,7 @@
             }
         },
         methods: {
-            btn(){
-                console.log(this.goodsData)
-            }  
+            
         },
         components: {
             GoodsListItem
@@ -33,5 +30,9 @@
     }
 </script>
 <style lang='less' scoped>
-
+    .goods-list{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
 </style>
