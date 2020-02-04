@@ -4,27 +4,25 @@
             @click="titleBtn(id)" 
             v-for="{title,id} in titles" 
             :key="id"
-            :style='nowActiveType === id && activeStyle'
+            :style='titleId === id && activeStyle'
         >
             {{title}}
         </div>
     </div>
 </template>
 <script>
+    import {mapState,mapMutations} from "vuex";
+    import {HOME_CHANGE_TITLE} from "../../../common/constant";
     export default {
         name:'tab-title',
         props:{
             titles:{
                 type:Array,
-                default(){
-                    return []
-                }
+                default:()=>[]
             }
         },
         data () {
             return {
-                /*默认活跃的标题*/
-                nowActiveType:0,
                 /*活跃标题显示的样式*/
                 activeStyle:{ 
                    "borderBottom":"2px solid pink",
@@ -34,11 +32,18 @@
         },
         methods: {
             /*title标题点击事件，点击后改变默认活跃的标题*/ 
-            titleBtn(id){
-                this.nowActiveType = id;
-                console.log("========>",this.$store.state.homeGoods)
-
+            titleBtn(titleId){
+                this.HOME_CHANGE_TITLE({
+                    type:HOME_CHANGE_TITLE,
+                    titleId
+                })
             },
+            ...mapMutations({
+                HOME_CHANGE_TITLE
+            })
+        },
+        computed: {
+            ...mapState(["titleId"]) //映射状态值
         }
     }
 </script>

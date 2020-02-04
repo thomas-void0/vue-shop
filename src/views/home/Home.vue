@@ -10,7 +10,7 @@
         <popular/>
         <tab-title :titles="titles"/>
         <goods-list  
-            :goodsData="homeGoods.homePop[0] && homeGoods.homePop[0].pop" 
+            :goodsData="nowDisplayData" 
         />
     </div>
 </template>
@@ -45,16 +45,21 @@
             return {
                 /*标题配置数据*/
                 titles:[
-                    {id:0,title:"流行"},
-                    {id:1,title:"新款"},
-                    {id:2,title:"精选"},
+                    {id:"homePop",title:"流行"},
+                    {id:"homeNews",title:"新款"},
+                    {id:"homeSelect",title:"精选"},
                 ],
             }
         },
         computed: {
-          ...mapState([
-              "homeGoods"
-          ])  
+            ...mapState([
+                "homeGoods",
+                "titleId"
+            ]),
+             // 当前显示的数据
+            nowDisplayData(){
+                return this.homeGoods[this.titleId][0] && this.homeGoods[this.titleId][0][this.titleId]
+            }
         },
         methods: {
             ...mapActions([
@@ -72,11 +77,11 @@
                         url
                     });
                 })
-            }
+            },
         },
         created () {
             this.initHomeGoodsData();
-        }
+        },
 
     }
 </script>

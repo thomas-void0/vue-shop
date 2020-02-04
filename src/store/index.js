@@ -7,7 +7,8 @@ import {
     HOME_CHANGE_RECOMMEND,
     HOME_CHANGE_HOMEPOP,
     HOME_CHANGE_HOMENEW,
-    HOME_CHANGE_HOMESELECT
+    HOME_CHANGE_HOMESELECT,
+    HOME_CHANGE_TITLE
 } from "../common/constant"
 import {handleImgAndLink,translateToJson} from '../common/untils'
 
@@ -19,9 +20,10 @@ export default new Vuex.Store({
         recommend:[], //推荐数据
         homeGoods:{//当前首页所有商品数据
             homePop:[],
-            homeNew:[],
+            homeNews:[],
             homeSelect:[]
         },
+        titleId:"homePop", //tabtitle中默认选中为流行的id值
     },
     mutations: {
         [HOME_CHANGE_BANNER](state,{imgs}){
@@ -31,16 +33,19 @@ export default new Vuex.Store({
             state.recommend = handleImgAndLink(data); //更新推荐数据
         },
         [HOME_CHANGE_HOMEPOP](state,{data}){ //更新首页流行数据
-            const {page,pop} = translateToJson(data);
-            state.homeGoods.homePop.push({page,pop});
+            const {page,homePop} = translateToJson(data);
+            state.homeGoods.homePop.push({page,homePop});
         },
         [HOME_CHANGE_HOMENEW](state,{data}){ //更新首页新款数据
-            const {page,news} = translateToJson(data);
-            state.homeGoods.homeNew.push({page,news});
+            const {page,homeNews} = translateToJson(data);
+            state.homeGoods.homeNews.push({page,homeNews});
         },
         [HOME_CHANGE_HOMESELECT](state,{data}){ //更新首页精选数据
-            const {page,select} = translateToJson(data);
-            state.homeGoods.homeNew.push({page,select});
+            const {page,homeSelect} = translateToJson(data);
+            state.homeGoods.homeSelect.push({page,homeSelect});
+        },
+        [HOME_CHANGE_TITLE](state,{titleId}){ //改变首页选中的当前title值
+            state.titleId = titleId;
         }
     },
     getters: {
