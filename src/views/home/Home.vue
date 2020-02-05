@@ -4,14 +4,20 @@
             <template #center>
                 <span>测试购物</span>
             </template>
-        </nav-bar>            
-        <swiper class="home-swiper" />  
-        <recommend/>
-        <popular/>
-        <tab-title :titles="titles"/>
-        <goods-list  
-            :goodsData="nowDisplayData" 
-        />
+        </nav-bar>   
+        <!-- 可滚动区域 start-->
+        <scroll :height="300">
+            <template #default>
+                <swiper class="home-swiper" />  
+                <recommend/>
+                <popular/>
+                <tab-title :titles="titles"/>
+                <goods-list  
+                    :goodsData="nowDisplayData" 
+                />
+            </template>
+        </scroll>
+        <!-- end -->
     </div>
 </template>
 
@@ -26,6 +32,7 @@
     import NavBar from "../../components/common/navbar/NavBar";
     import TabTitle from "../../components/common/tabtitle/TabTitle";
     import GoodsList from '../../components/common/goods/GoodsList';
+    import Scroll from "../../components/content/Scroll";
 
     import Swiper from "./home-children/Swiper";
     import Recommend from "./home-children/Recommend";
@@ -37,6 +44,7 @@
             NavBar,
             TabTitle,
             GoodsList,
+            Scroll,
             Swiper,
             Recommend,
             Popular,
@@ -82,11 +90,13 @@
         created () {
             this.initHomeGoodsData();
         },
-
     }
 </script>
 
 <style scoped>
+    .home{
+        /* height: 300px; */
+    }
     .home-nav-bar{
         position: fixed;
         left: 0;
