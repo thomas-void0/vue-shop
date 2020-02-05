@@ -6,7 +6,7 @@
             </template>
         </nav-bar>   
         <!-- 可滚动区域 start-->
-        <scroll :height="300">
+        <scroll class="scroll_content" :probeType="3">
             <template #default>
                 <swiper class="home-swiper" />  
                 <recommend/>
@@ -18,6 +18,8 @@
             </template>
         </scroll>
         <!-- end -->
+        <!-- 返回顶部按钮 -->
+        <back-top  class="back-top"/>
     </div>
 </template>
 
@@ -33,6 +35,7 @@
     import TabTitle from "../../components/common/tabtitle/TabTitle";
     import GoodsList from '../../components/common/goods/GoodsList';
     import Scroll from "../../components/content/Scroll";
+    import BackTop from "../../components/common/back-top/BackTop";
 
     import Swiper from "./home-children/Swiper";
     import Recommend from "./home-children/Recommend";
@@ -45,6 +48,7 @@
             TabTitle,
             GoodsList,
             Scroll,
+            BackTop,
             Swiper,
             Recommend,
             Popular,
@@ -93,9 +97,15 @@
     }
 </script>
 
-<style scoped>
-    .home{
-        /* height: 300px; */
+<style lang="less" scoped>
+    .scroll_content{
+        height:calc(100vh - 93px);
+    }
+    .back-top{
+        position: fixed;
+        right: 20px;
+        top: 83%;
+        z-index: 99;
     }
     .home-nav-bar{
         position: fixed;
@@ -107,4 +117,5 @@
     .home-swiper{
         margin-top: 44px;
     }
+    
 </style>

@@ -8,7 +8,9 @@ import {
     HOME_CHANGE_HOMEPOP,
     HOME_CHANGE_HOMENEW,
     HOME_CHANGE_HOMESELECT,
-    HOME_CHANGE_TITLE
+    HOME_CHANGE_TITLE,
+    GET_BSCROLL_OBJECT,
+    CHANGE_SHOW_FLAG
 } from "../common/constant"
 import {handleImgAndLink,translateToJson} from '../common/untils'
 
@@ -24,6 +26,8 @@ export default new Vuex.Store({
             homeSelect:[]
         },
         titleId:"homePop", //tabtitle中默认选中为流行的id值
+        bscorll:null, //bscroll实例对象
+        isShow:false //返回按钮的显示状态值
     },
     mutations: {
         [HOME_CHANGE_BANNER](state,{imgs}){
@@ -46,6 +50,12 @@ export default new Vuex.Store({
         },
         [HOME_CHANGE_TITLE](state,{titleId}){ //改变首页选中的当前title值
             state.titleId = titleId;
+        },
+        [GET_BSCROLL_OBJECT](state,bscorll){ //得到滚动实例对象
+            state.bscorll = bscorll;
+        },
+        [CHANGE_SHOW_FLAG](state,bool){ //改变返回顶部按钮的显示状态值
+            state.isShow = bool;
         }
     },
     getters: {
