@@ -1,6 +1,6 @@
 <template>
     <div class='goods-list-item'>
-        <img :src="data.img" alt="img" />
+        <img @load="imgLoad" :src="data.img" alt="img" />
         <p class="detail">{{data.title}}</p>
         <p>￥：{{data.price}}</p>
     </div>
@@ -12,6 +12,11 @@
             data:Object,
             default(){
                 return {}
+            }
+        },
+        methods: {
+            imgLoad(){
+                this.$bus.$emit("imgLoadFinish");
             }
         }
     }

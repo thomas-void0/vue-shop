@@ -6,7 +6,11 @@
             </template>
         </nav-bar>   
         <!-- 可滚动区域 start-->
-        <scroll class="scroll_content" :probeType="3">
+        <scroll 
+            class="scroll_content" 
+            :probeType="3"
+            :pullUpLoad="true"
+        >
             <template #default>
                 <swiper class="home-swiper" />  
                 <recommend/>
@@ -30,6 +34,7 @@
         HOME_CHANGE_HOMENEW,
         HOME_CHANGE_HOMESELECT
     } from "../../common/constant"
+    import {debounce} from "../../common/untils";
 
     import NavBar from "../../components/common/navbar/NavBar";
     import TabTitle from "../../components/common/tabtitle/TabTitle";
@@ -66,7 +71,8 @@
         computed: {
             ...mapState([
                 "homeGoods",
-                "titleId"
+                "titleId",
+                "bscorll"
             ]),
              // 当前显示的数据
             nowDisplayData(){
@@ -94,6 +100,16 @@
         created () {
             this.initHomeGoodsData();
         },
+        mounted () { //监听放在这个构子里面去做，保证组件已经存在
+            const refresh = debounce(this.bscorll.refresh,500);
+            this.$bus.$on("imgLoadFinish",()=>{ //事件总线的方式取监听图片加载完成
+                this.bscorll && refresh.apply(this.bscorll) ; //刷新scroll以重新计算高度
+            })
+            //监听上拉加载
+            this.bscorll.on("pullingUp",()=>{
+                console.log("xxxxxxxxxxxx")
+            })
+        }
     }
 </script>
 

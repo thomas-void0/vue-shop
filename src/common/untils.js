@@ -9,3 +9,14 @@ export const handleImgAndLink = (data)=>(
 // 将请求到的数据转化为JSON数据
 export const translateToJson = (data)=>JSON.parse(JSON.stringify(data));
 
+// 防抖函数
+export const debounce = (func,delay)=>{
+    let timer = null;
+    return function(...args){ 
+        timer && clearTimeout(timer);
+        timer = setTimeout(()=>{
+            func.apply(this,args)
+        },delay)
+    }
+}
+

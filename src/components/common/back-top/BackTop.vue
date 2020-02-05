@@ -8,14 +8,19 @@
     </div>
 </template>
 <script>
-    import { mapState } from 'vuex';
+    import { 
+        mapState, 
+        mapMutations 
+    } from 'vuex';
+    import {CHANGE_SHOW_FLAG} from "../../../common/constant";
+    
     export default {
         name:'back-top',
         methods: {
             scrollBackToTop(){
-                console.log("点击")
                 this.bscorll.scrollTo(0,0,500);
-            }
+            },
+            ...mapMutations([CHANGE_SHOW_FLAG])
         },
         computed: {
             ...mapState([
@@ -26,6 +31,10 @@
                 return this.isShow
             }
         },
+        mounted () {
+            // 监听滚动
+            this.bscorll.on("scroll",position=>Math.abs(position.y) > 1000 ? this[CHANGE_SHOW_FLAG](true) : this[CHANGE_SHOW_FLAG](false))
+        }
     }
 </script>
 <style lang='less' scoped>
