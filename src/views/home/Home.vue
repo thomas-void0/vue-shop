@@ -1,4 +1,5 @@
 <template>
+    <keep-alive>
     <div class="home">
         <nav-bar class="home-nav-bar">
             <template #center>
@@ -34,6 +35,7 @@
         <!-- 返回顶部按钮 -->
         <back-top  class="back-top"/>
     </div>
+    </keep-alive>
 </template>
 
 <script>
@@ -82,7 +84,9 @@
                 /*tab-title的offset*/ 
                 tabOffsetTop:0,
                 /*tab-title是否吸顶*/ 
-                isSorption:false
+                isSorption:false,
+                /*离开首页时的滚动条位置*/ 
+                saveScrollY:0
 
             }
         },
@@ -143,6 +147,12 @@
         },
         created () {
             this.initHomeGoodsData();
+        },
+        activated () {
+            this.bscorll.y && this.bscorll.scrollTo(0,this.saveY); //跳转到离开时的位置
+        },
+        deactivated () {
+            this.saveY = this.bscorll.y//保存离开时的位置
         },
         mounted () { //监听放在这个构子里面去做，保证组件已经存在
             const refresh = debounce(this.bscorll.refresh,500);

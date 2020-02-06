@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <div class="content">
-      <router-view/>
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"/>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"/>
     </div>
     <div class="tab-bar-css">
       <tab-bar />

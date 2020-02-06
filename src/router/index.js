@@ -11,7 +11,7 @@ const Cart = ()=>import("../views/cart/Cart")
 
 const routes = [
     {path:"",redirect:"/home"},
-    {path:"/home",component:Home},
+    {path:"/home",component:Home,meta:{keepAlive:true}},
     {path:"/category",component:Category},
     {path:"/profile",component:Profile},
     {path:"/cart",component:Cart},
