@@ -37,16 +37,16 @@ export default new Vuex.Store({
             state.recommend = handleImgAndLink(data); //更新推荐数据
         },
         [HOME_CHANGE_HOMEPOP](state,{data}){ //更新首页流行数据
-            const {page,homePop} = translateToJson(data);
-            state.homeGoods.homePop.push({page,homePop});
+            const {homePop} = translateToJson(data);
+            state.homeGoods.homePop.push(...homePop);
         },
         [HOME_CHANGE_HOMENEW](state,{data}){ //更新首页新款数据
-            const {page,homeNews} = translateToJson(data);
-            state.homeGoods.homeNews.push({page,homeNews});
+            const {homeNews} = translateToJson(data);
+            state.homeGoods.homeNews.push(...homeNews);
         },
         [HOME_CHANGE_HOMESELECT](state,{data}){ //更新首页精选数据
-            const {page,homeSelect} = translateToJson(data);
-            state.homeGoods.homeSelect.push({page,homeSelect});
+            const {homeSelect} = translateToJson(data);
+            state.homeGoods.homeSelect.push(...homeSelect);
         },
         [HOME_CHANGE_TITLE](state,{titleId}){ //改变首页选中的当前title值
             state.titleId = titleId;

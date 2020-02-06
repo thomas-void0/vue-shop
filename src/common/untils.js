@@ -20,3 +20,14 @@ export const debounce = (func,delay)=>{
     }
 }
 
+// 节流函数
+export const throttle = (func,waitTime)=>{
+    let oldTime = 0; //上一次调用的时间,默认为0
+    return function (...args){
+        let nowTime = +Date.now();
+        if(nowTime - oldTime >= waitTime){
+            func.apply(this,args);
+            oldTime = nowTime;
+        }
+    }
+}

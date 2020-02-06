@@ -66,6 +66,10 @@
                     {id:"homeNews",title:"新款"},
                     {id:"homeSelect",title:"精选"},
                 ],
+                /*当前请求到的数据的页码*/ 
+                popPage:1, 
+                newsPage:1,
+                selectPage:1
             }
         },
         computed: {
@@ -76,7 +80,7 @@
             ]),
              // 当前显示的数据
             nowDisplayData(){
-                return this.homeGoods[this.titleId][0] && this.homeGoods[this.titleId][0][this.titleId]
+                return this.homeGoods[this.titleId] || []
             }
         },
         methods: {
@@ -96,18 +100,40 @@
                     });
                 })
             },
+            /*上拉请求数据*/ 
+            upReqProductData(){
+                switch (this.titleId) {
+                    case "homePop":
+                        return (this.popPage+=1) <= 4 && this.getHomeAllDefaultData({
+                            type:HOME_CHANGE_HOMEPOP,
+                            url:`/pop/pop-page${this.popPage}.json`
+                        }) 
+                    case "homeNews":
+                        return (this.newsPage+=1) <= 3 && this.getHomeAllDefaultData({
+                            type:HOME_CHANGE_HOMENEW,
+                            url:`/new/new-page${this.newsPage}.json`
+                        })
+                    default:
+                        return (this.selectPage+=1) <= 3 && this.getHomeAllDefaultData({
+                            type:HOME_CHANGE_HOMESELECT,
+                            url:`/select/select-page${this.selectPage}.json`
+                        })
+                }
+            }
         },
         created () {
             this.initHomeGoodsData();
         },
         mounted () { //监听放在这个构子里面去做，保证组件已经存在
             const refresh = debounce(this.bscorll.refresh,500);
+            const finish = debounce(this.bscorll.finishPullUp,500);
             this.$bus.$on("imgLoadFinish",()=>{ //事件总线的方式取监听图片加载完成
-                this.bscorll && refresh.apply(this.bscorll) ; //刷新scroll以重新计算高度
+                this.bscorll && refresh.apply(this.bscorll); //刷新scroll以重新计算高度
+                finish.apply(this.bscorll)//图片渲染完成后上拉结束
             })
             //监听上拉加载
             this.bscorll.on("pullingUp",()=>{
-                console.log("xxxxxxxxxxxx")
+                this.upReqProductData()//上拉请求数据
             })
         }
     }
