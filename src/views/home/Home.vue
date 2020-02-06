@@ -4,7 +4,13 @@
             <template #center>
                 <span>测试购物</span>
             </template>
-        </nav-bar>   
+        </nav-bar> 
+        <tab-title 
+            ref="tabTitle" 
+            :titles="titles"
+            v-show="isSorption"
+            class="fixed"
+        />             
         <!-- 可滚动区域 start-->
         <scroll 
             class="scroll_content" 
@@ -12,10 +18,13 @@
             :pullUpLoad="true"
         >
             <template #default>
-                <swiper class="home-swiper" />  
+                <swiper 
+                    class="home-swiper" 
+                    @swiperImgLoadFinish="swiperImgLoadFinish"
+                />  
                 <recommend/>
                 <popular/>
-                <tab-title :titles="titles"/>
+                <tab-title ref="tabTitle" v-show="!isSorption" :titles="titles"/>
                 <goods-list  
                     :goodsData="nowDisplayData" 
                 />
@@ -69,7 +78,12 @@
                 /*当前请求到的数据的页码*/ 
                 popPage:1, 
                 newsPage:1,
-                selectPage:1
+                selectPage:1,
+                /*tab-title的offset*/ 
+                tabOffsetTop:0,
+                /*tab-title是否吸顶*/ 
+                isSorption:false
+
             }
         },
         computed: {
@@ -119,6 +133,12 @@
                             url:`/select/select-page${this.selectPage}.json`
                         })
                 }
+            },
+            // 轮播图片加载完成
+            swiperImgLoadFinish(){
+                //计算tab-title的高度
+                const target = this.$refs.tabTitle.$el
+                this.tabOffsetTop = target.offsetTop -target.offsetHeight;
             }
         },
         created () {
@@ -135,6 +155,10 @@
             this.bscorll.on("pullingUp",()=>{
                 this.upReqProductData()//上拉请求数据
             })
+            //监听滚动
+            this.bscorll.on("scroll",position=>{
+                Math.abs(position.y) >= this.tabOffsetTop ? (this.isSorption = true) : (this.isSorption = false);
+            })
         }
     }
 </script>
@@ -150,14 +174,20 @@
         z-index: 99;
     }
     .home-nav-bar{
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
+        // position: fixed;
+        // left: 0;
+        // right: 0;
+        // top: 0;
+        position: relative;
         z-index: 2;
     }
     .home-swiper{
-        margin-top: 44px;
+        // margin-top: 44px;
+    }
+    .fixed{
+        position: relative;
+        z-index: 2;
+        background-color: #fff;
     }
     
 </style>

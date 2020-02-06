@@ -55,7 +55,6 @@
         text-align: center;
         height: 32px;
         line-height: 32px;
-        margin-top: 3px;
         div{
             border-bottom: 2px solid white;
             padding-bottom: 3px;
