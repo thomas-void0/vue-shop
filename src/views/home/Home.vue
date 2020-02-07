@@ -1,5 +1,4 @@
 <template>
-    <keep-alive>
     <div class="home">
         <nav-bar class="home-nav-bar">
             <template #center>
@@ -35,7 +34,6 @@
         <!-- 返回顶部按钮 -->
         <back-top  class="back-top"/>
     </div>
-    </keep-alive>
 </template>
 
 <script>
@@ -184,15 +182,8 @@
         z-index: 99;
     }
     .home-nav-bar{
-        // position: fixed;
-        // left: 0;
-        // right: 0;
-        // top: 0;
         position: relative;
         z-index: 2;
-    }
-    .home-swiper{
-        // margin-top: 44px;
     }
     .fixed{
         position: relative;

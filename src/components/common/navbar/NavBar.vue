@@ -1,5 +1,5 @@
 <template>
-    <div class='navbar'>
+    <div class='navbar' :style="bgColorObj">
         <div><slot name="left"></slot></div>
         <div class="center"><slot name="center"></slot></div>
         <div><slot name="right"></slot></div>
@@ -7,7 +7,18 @@
 </template>
 <script>
     export default {
-        name:'navbar'
+        name:'navbar',
+        props:{
+            bgColor:{
+                type:String,
+                default:()=>"pink"
+            },
+        },
+        computed: {
+            bgColorObj(){
+                return {backgroundColor:this.bgColor}
+            }
+        }
     }
 </script>
 <style lang='less' scoped>
@@ -16,7 +27,6 @@
         justify-content: space-around;
         text-align: center;
         height: 44px;
-        background-color: pink;
         color: white;
         line-height: 44px;
         box-shadow: 0px 1px 1px rgba(100, 100, 100, 1);

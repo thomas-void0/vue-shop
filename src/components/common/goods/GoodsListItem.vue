@@ -1,5 +1,5 @@
 <template>
-    <div class='goods-list-item'>
+    <div @click="jumpToDetail" class='goods-list-item'>
         <img @load="imgLoad" :src="data.img" alt="img" />
         <p class="detail">{{data.title}}</p>
         <p>￥：{{data.price}}</p>
@@ -17,6 +17,9 @@
         methods: {
             imgLoad(){
                 this.$bus.$emit("imgLoadFinish");
+            },
+            jumpToDetail(){ //跳转到详情页
+                this.$router.push("/detail/传递过来的id值")
             }
         }
     }
