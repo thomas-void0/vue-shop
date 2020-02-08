@@ -7,12 +7,23 @@
         "https://s11.mogucdn.com/mlcdn/c45406/180923_6dd8g0h287lg8jc3da40g901b02h8_640x960.jpg_640x960.v1cAC.70.webp"
     ],
     "title":"intercrew2019秋冬宽松大码休闲时尚印花落肩卫衣女",
-    "price":149.00,
+    "price":"149.00",
     "oldPrice":159.99,
-    "salesVolume":1000,
     "collect":167,
     "deliveryTime":"72小时发货",
     "fareInfo":"退货补运费",
     "freeShipping":"全国包邮",
-    "returnGoods":"7天无理由退换货"
+    "returnGoods":"7天无理由退换货",
+    "discoutDesc":"活动价",
+    "tip":"抗击疫情，人人有责，武汉加油!",
+    "help":"帮我选",
+    "shop":{
+        "name":"apple旗舰店",
+        "salesVolume":1000,
+        "allGoods":250,
+        "descPoint":"4.67",
+        "pricePoint":"5.00",
+        "qualityPoint":"4.17",
+        "other":"进店逛逛"
+    }
 }
