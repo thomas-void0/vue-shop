@@ -65,6 +65,7 @@
     .detail-shop-info{
         margin-top: 0.2rem;
         background-color: #fff;
+        padding-bottom: 2rem;
         .shop-name{
             display: flex;
             padding:2rem 0 1rem 1rem;
@@ -122,7 +123,7 @@
             font-size: 0.9rem;
             text-align: center;
             line-height: 1.3rem;
-            margin:  0.5rem auto 1rem auto;
+            margin:  0.5rem auto 0 auto;
             color: white;
         }
     }

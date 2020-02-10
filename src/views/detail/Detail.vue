@@ -1,13 +1,16 @@
 <template>
     <div class='detail'>
-        <detail-nav-bar />
-        <detail-swiper :bannerImg="imgs && imgs" />
-        <detail-goods-info :goodsInfo="goodsInfo"/>
-        <detail-shop-info v-if="!!shopInfo" :shopInfo="shopInfo"/>
+        <detail-nav-bar  class="nav-bar"/>
+        <scroll class="scroll_content">
+            <detail-swiper :bannerImg="imgs && imgs" />
+            <detail-goods-info :goodsInfo="goodsInfo"/>
+            <detail-shop-info v-if="!!shopInfo" :shopInfo="shopInfo"/>            
+        </scroll>
     </div>
 </template>
 <script>
     import {reqLocalJsonData} from "../../network";
+    import Scroll from "../../components/content/Scroll";
     
     import DetailNavBar from "./detail-children/DetailNavBar";
     import DetailSwiper from "./detail-children/DetailSwiper";
@@ -16,6 +19,7 @@
     export default {
         name:'detail',
         components: {
+            Scroll,
             DetailNavBar,
             DetailSwiper,
             DetailGoodsInfo,
@@ -59,5 +63,17 @@
 <style lang='less' scoped>
     .detail{
         background-color: #ccc;
+        height: 100vh;
+        .nav-bar{
+            position: relative;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index: 9;
+        }
+        .scroll_content{
+            height: calc(100vh - 93px);
+        }
     }
+
 </style>

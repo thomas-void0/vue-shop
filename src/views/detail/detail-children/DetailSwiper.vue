@@ -8,6 +8,7 @@
             <img 
                 :src="item" 
                 alt="detailImg" 
+                @click="swiperClick"
             />
         </van-swipe-item>
         </van-swipe>
@@ -25,6 +26,11 @@
             bannerImg:{
                 type:Array,
                 default:()=>""
+            }
+        },
+        methods: {
+            swiperClick(){
+                this.$toast.show("请不要随便点击轮播图片",1000)
             }
         }
     }
